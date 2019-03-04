@@ -1,0 +1,1 @@
+/etc/nginx/sites-available/igc/int/wildcard.igc01-int.igamingcloud.com

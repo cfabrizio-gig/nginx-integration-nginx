@@ -1,0 +1,22 @@
+upstream igc_mslimitaggregator_dev_http {
+ server AZR5DEVIGC01.stage.gig.local:80 max_fails=5;
+ zone igc_mslimitaggregator_dev 64k;
+ keepalive 128;
+}
+
+############## mslimitaggregator DEV IGC ################################
+
+server {
+status_zone igc_mslimitaggregator_dev;
+listen 80;
+    server_name mslimitaggregator-dev.igc.zone;
+    access_log /var/log/nginx/igc-mslimitaggregator-dev-access.log main;
+    error_log /var/log/nginx/igc-mslimitaggregator-dev-error.log warn;
+
+
+location / {
+    include sites-includes/igc_stage_location.conf;
+    proxy_pass http://igc_mslimitaggregator_dev_http;
+            }
+
+   }

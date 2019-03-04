@@ -1,0 +1,23 @@
+upstream igc_msusersapi_int_http {
+ server AZR5INTIGC01.stage.gig.local:80 max_fails=5;
+ server AZR5INTIGC02.stage.gig.local:80 max_fails=5;
+ zone igc_msusersapi_int 64k;
+ keepalive 128;
+}
+
+############## msusersapi  INT IGC ################################
+
+server {
+status_zone igc_msusersapi_int;
+listen 80;
+ server_name msusersapi-int.igc.zone;
+ access_log /var/log/nginx/igc-msusersapi-int-access.log main;
+ error_log /var/log/nginx/igc-msusersapi-int-error.log warn;
+
+
+location / {
+ include sites-includes/igc_stage_location.conf;
+ proxy_pass http://igc_msusersapi_int_http;
+ }
+
+}

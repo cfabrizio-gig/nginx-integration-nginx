@@ -1,0 +1,23 @@
+upstream igc_mscountriesapi_int_http {
+ server AZR5INTIGC01.stage.gig.local:80 max_fails=5;
+ server AZR5INTIGC02.stage.gig.local:80 max_fails=5;
+ zone igc_mscountriesapi_int 64k;
+ keepalive 128;
+}
+
+############## mscountriesapi  INT IGC ################################
+
+server {
+status_zone igc_mscountriesapi_int;
+listen 80;
+    server_name mscountriesapi-int.igc.zone;
+    access_log /var/log/nginx/igc-mscountriesapi-int-access.log main;
+    error_log /var/log/nginx/igc-mscountriesapi-int-error.log warn;
+
+
+location / {
+    include sites-includes/igc_stage_location.conf;
+    proxy_pass http://igc_mscountriesapi_int_http;
+            }
+
+   }

@@ -1,0 +1,1 @@
+/etc/nginx/sites-available/igc/int/msuserlimitsapi-int.igamingcloud.com

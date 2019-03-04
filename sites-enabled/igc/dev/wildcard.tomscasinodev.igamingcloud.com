@@ -1,0 +1,1 @@
+/etc/nginx/sites-available/igc/dev/wildcard.tomscasinodev.igamingcloud.com

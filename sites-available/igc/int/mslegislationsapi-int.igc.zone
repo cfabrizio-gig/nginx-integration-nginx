@@ -1,0 +1,23 @@
+upstream igc_mslegislationsapi_int_http {
+    server AZR5INTIGC01.stage.gig.local:80 max_fails=5;
+    server AZR5INTIGC02.stage.gig.local:80 max_fails=5;
+    zone igc_mslegislationsapi_int 64k;
+    keepalive 128;
+    }
+
+############## mslegislationsapi  INT IGC ################################
+
+server {
+status_zone igc_mslegislationsapi_int;
+listen 80;
+    server_name mslegislationsapi-int.igc.zone;
+    access_log /var/log/nginx/igc-mslegislationsapi-int-access.log main;
+    error_log /var/log/nginx/igc-mslegislationsapi-int-error.log warn;
+
+
+location / {
+    include sites-includes/igc_stage_location.conf;
+    proxy_pass http://igc_mslegislationsapi_int_http;
+            }
+
+   }
